@@ -2,7 +2,6 @@ package user;
 
 import data.User;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -20,14 +19,12 @@ public class UpdateUserTest {
     private String bearerToken;
 
     @Before
-    @Step("Подготовка данных для теста")
     public void setUp() {
         user = getRandomUser();
         userClient = new UserClient();
     }
 
     @Test
-    @Step("Изменение данных пользователя с авторизацией")
     @DisplayName("Изменение данных пользователя с авторизацией")
     @Description("Проверка изменения данных пользователя с авторизацией")
     public void updateUserWithAuthorizationTest() {
@@ -43,7 +40,6 @@ public class UpdateUserTest {
     }
 
     @Test
-    @Step("Изменение данных пользователя без авторизации")
     @DisplayName("Изменение данных пользователя без авторизации")
     @Description("Проверка изменения данных пользователя без авторизации")
     public void updateUserWithoutAuthorizationTest() {
@@ -54,7 +50,6 @@ public class UpdateUserTest {
                 .body("message", is("You should be authorised"));
     }
 
-    @Step("Удаление пользователя после теста")
     @After
     public void tearDown() {
         if (bearerToken != null && !bearerToken.isEmpty()) {

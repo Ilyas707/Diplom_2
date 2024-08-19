@@ -2,7 +2,6 @@ package user;
 
 import data.User;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -20,14 +19,12 @@ public class CreateUserTest {
     private String bearerToken;
 
     @Before
-    @Step("Подготовка данных для теста")
     public void setUp() {
         user = getRandomUser();
         userClient = new UserClient();
     }
 
     @Test
-    @Step("Создание уникального пользователя")
     @DisplayName("Создание уникального пользователя")
     @Description("Проверка создания уникального пользователя")
     public void createUserTest() {
@@ -37,7 +34,6 @@ public class CreateUserTest {
     }
 
     @Test
-    @Step("Создание пользователя, который уже зарегистрирован")
     @DisplayName("Создание пользователя, который уже зарегистрирован")
     @Description("Проверка создания пользователя, который уже зарегистрирован")
     public void createDuplicateUserTest() {
@@ -51,7 +47,6 @@ public class CreateUserTest {
     }
 
     @Test
-    @Step("Создание пользователя без заполнения поля Имя")
     @DisplayName("Создание пользователя без заполнения поля Имя")
     @Description("Проверка создания пользователя без заполнения поля Имя")
     public void createUserWithoutNameTest() {
@@ -63,7 +58,6 @@ public class CreateUserTest {
     }
 
     @Test
-    @Step("Создание пользователя без заполнения поля Email")
     @DisplayName("Создание пользователя без заполнения поля Email")
     @Description("Проверка создания пользователя без заполнения поля Email")
     public void createUserWithoutEmailTest() {
@@ -75,7 +69,6 @@ public class CreateUserTest {
     }
 
     @Test
-    @Step("Создание пользователя без заполнения поля Пароль")
     @DisplayName("Создание пользователя без заполнения поля Пароль")
     @Description("Проверка создания пользователя без заполнения поля Пароль")
     public void createUserWithoutPasswordTest() {
@@ -86,7 +79,6 @@ public class CreateUserTest {
                 .body("message", is("Email, password and name are required fields"));
     }
 
-    @Step("Удаление пользователя после теста")
     @After
     public void tearDown() {
         if (bearerToken == null || bearerToken.isEmpty()) return;

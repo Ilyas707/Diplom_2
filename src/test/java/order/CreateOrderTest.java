@@ -27,7 +27,6 @@ public class CreateOrderTest {
     private String bearerToken;
 
     @Before
-    @Step("Подготовка данных для теста")
     public void setUp() {
         user = getRandomUser();
         userClient = new UserClient();
@@ -44,7 +43,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @Step("Создание заказа с авторизацией")
     @DisplayName("Создание заказа с авторизацией")
     @Description("Проверка создания заказа с авторизацией")
     public void createOrderWithAuthorizationTest() {
@@ -54,7 +52,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @Step("Создание заказа без авторизации")
     @DisplayName("Создание заказа без авторизации")
     @Description("Проверка создания заказа без авторизации")
     public void createOrderWithoutAuthorizationTest() {
@@ -64,7 +61,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @Step("Создание заказа без ингредиентов")
     @DisplayName("Создание заказа без ингредиентов")
     @Description("Проверка создания заказа без ингредиентов")
     public void createOrderWithoutIngredientTest() {
@@ -78,7 +74,6 @@ public class CreateOrderTest {
     }
 
     @Test
-    @Step("Создание заказа с неверным хешем ингредиентов")
     @DisplayName("Создание заказа с неверным хешем ингредиентов")
     @Description("Проверка создания заказа с неправильными ингредиентами")
     public void createOrderWithInvalidIngredientTest() {
@@ -93,7 +88,6 @@ public class CreateOrderTest {
                 .body("message", is("One or more ids provided are incorrect"));
     }
 
-    @Step("Удаление пользователя после теста")
     @After
     public void tearDown() {
         if (bearerToken == null || bearerToken.isEmpty()) return;

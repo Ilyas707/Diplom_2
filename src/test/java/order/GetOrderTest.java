@@ -24,7 +24,6 @@ public class GetOrderTest {
     private String bearerToken;
 
     @Before
-    @Step("Подготовка данных для теста")
     public void setUp() {
         user = getRandomUser();
         userClient = new UserClient();
@@ -41,28 +40,25 @@ public class GetOrderTest {
     }
 
     @Test
-    @Step("Получение заказов авторизованного пользователя")
     @DisplayName("Получение заказов авторизованного пользователя")
     @Description("Проверка получения заказов авторизованного пользователя")
     public void getOrdersWithAuthorizationTest() {
         registerAndLogin();
         orderClient.create(order, bearerToken);
-        ValidatableResponse responseOrderUser = orderClient.getClientOrder(bearerToken);
+        ValidatableResponse responseOrderUser = OrderClient.getClientOrder(bearerToken);
         responseOrderUser.assertThat().statusCode(SC_OK).body("success", is(true));
     }
 
     @Test
-    @Step("Получение заказов неавторизованного пользователя")
     @DisplayName("Получение заказов неавторизованного пользователя")
     @Description("Проверка получения заказов неавторизованного пользователя")
     public void getOrdersWithoutAuthorizationTest() {
         bearerToken = "";
-        ValidatableResponse getClientOrder = orderClient.getClientOrder(bearerToken);
+        ValidatableResponse getClientOrder = OrderClient.getClientOrder(bearerToken);
         getClientOrder.assertThat().statusCode(SC_UNAUTHORIZED).body("success", is(false))
                 .and().body("message", is("You should be authorised"));
     }
 
-    @Step("Удаление пользователя после теста")
     @After
     public void tearDown() {
         if (bearerToken == null || bearerToken.isEmpty()) return;
